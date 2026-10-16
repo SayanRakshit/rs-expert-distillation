@@ -12,7 +12,7 @@ teacher's token-level probability distributions.
 teacher by 29 %, after about one hour on a single A100. The notebook in this repository is saved **with the
 outputs of that run**.
 
-> This is an end-to-end engineering project, not a new method. It combines well-known ideas: teacher-generated
+> This is an end-to-end project. It combines well-known ideas: teacher-generated
 > data (self-instruct), sequence- and logit-level knowledge distillation (Hinton et al., 2015; Kim & Rush, 2016)
 > and context distillation of the system prompt. The value is in the complete, reproducible pipeline and the
 > honest evaluation.
