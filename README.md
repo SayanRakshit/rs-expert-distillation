@@ -108,7 +108,7 @@ Set `RUN_SIZE = "quick test"` for a 15-minute end-to-end check with a tiny datas
 | Step 4 | distillation training, checkpoints, bf16 export |
 | Step 5 | held-out evaluation: NLL, KL, pairwise LLM judge |
 
-## What I learned
+## Key takeaways
 
 - Why logit distillation carries more signal than copying answers: the teacher's alternatives ("SAR 60 %,
   radar 30 %") teach the student what else is acceptable.
