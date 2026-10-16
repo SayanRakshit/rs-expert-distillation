@@ -73,6 +73,8 @@ decay, fp32 weights with bf16 autocast, AdamW. 13 min.
 synthetic and inherits the teacher's mistakes; 78 questions is a small test set. Treat the numbers as
 indicative, not as a benchmark.
 
+The training set is in dataset.jsonl (2,839 Q&A pairs) and the side-by-side held-out answers in eval.json.
+
 ## Running it yourself
 
 The notebook adapts to the GPU it finds:
