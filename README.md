@@ -47,7 +47,7 @@ flowchart LR
 
 ## Results
 
-One run on 2026-10-16, NVIDIA A100-SXM4-80GB (Google Colab), ≈ 65 min end to end.
+NVIDIA A100-SXM4-80GB (Google Colab), ≈ 65 min end to end.
 
 | Metric (78 held-out questions) | Base Qwen3.5-2B | **RS-Expert-Qwen3.5-2B** |
 |---|---|---|
