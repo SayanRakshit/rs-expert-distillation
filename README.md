@@ -1,6 +1,6 @@
 # RS-Expert: a small remote-sensing LLM via knowledge distillation
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/YOUR_GITHUB_USERNAME/rs-expert-distillation/blob/main/RS_Expert.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/SayanRakshit/rs-expert-distillation/blob/main/RS_Expert.ipynb)
 
 A single Google Colab notebook that distils a 9B-parameter teacher (**Qwen3.5-9B**) into a 2B student
 (**Qwen3.5-2B**) specialised in **remote sensing and Earth observation**, with no human-written dataset.
