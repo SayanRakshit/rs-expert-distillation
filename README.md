@@ -17,6 +17,47 @@ outputs of that run**.
 > and context distillation of the system prompt. The value is in the complete, reproducible pipeline and the
 > honest evaluation.
 
+## How it works (pseudocode)
+
+```python
+teacher = load("Qwen3.5-9B")      # frozen: writes the data and judges
+student = load("Qwen3.5-2B")      # all weights are trained
+
+# 1. Teacher writes questions
+for topic in topics:                              # 40 remote-sensing sub-topics
+    questions += teacher.generate(f"Write 8 questions about {topic}")
+questions = remove_duplicates(questions)          # 3,000 questions
+test_q = sample(questions, 80)                    # held out, never trained on
+
+# 2. Teacher writes expert answers
+for q in questions:
+    answer = teacher.generate(system="You are a remote-sensing expert", user=q)
+    if is_good(answer):
+        dataset.add(q, answer)                    # 2,839 pairs
+
+# 3. Teacher re-reads each answer and saves soft labels
+for q, answer in dataset:
+    probs = softmax(teacher(q + answer))          # one list per answer token
+    top_ids, top_probs = topk(probs, 32)          # keep the top 32
+
+# 4. Student training (full fine-tuning, no system prompt)
+for epoch in range(2):
+    for batch in batches(dataset):
+        s_logp = log_softmax(student(batch.q + batch.answer))
+        ce = -s_logp[written_token]                               # copy the written token
+        kl = sum(top_probs * (log(top_probs) - s_logp[top_ids]))  # copy the teacher's top 32
+        loss = 0.5 * ce + 0.5 * kl
+        loss.backward(); optimizer.step()
+
+# 5. Evaluation on held-out questions
+for q in test_q:
+    verdict = teacher.judge(q, base.generate(q), student.generate(q))   # asked in both orders
+# -> wins / ties / losses, plus NLL and KL to the teacher
+
+# 6. Export
+save_safetensors(student); convert_to_gguf(student)
+```
+
 ## How it works
 
 ```mermaid
